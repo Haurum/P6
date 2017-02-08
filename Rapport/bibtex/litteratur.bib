@@ -1,0 +1,69 @@
+%%%% Guide til bibtex og litteratur.bib %%%%
+
+% Alle kilder angives efter Harvard-metoden og vil i rapporten femstaa med [FORFATTER, AAR] eller mere praecist [EFTERNAVN, AAR].
+
+% Nederst findes eksempler paa kildeangivelser af typerne book, article, manual techreport og misc.
+	% - Book bruges ved helt almindelige boeger
+	% - Article bruges ved artikler og udgivelser
+	% - Manual bruges ved henvisninger fra internettet, idet \url-funktionen findes her
+	% - Techreport kan bruges ved mindre udgivelser, hvor kun titel, forfatter og aar er noedvendig eller tilgaengelig
+	% - Misc kan bruges ved det, der falder udenfor de andre kategorier - interview, forelaesninger, foredrag osv. 
+
+% Hvis der er flere forfattere paa en kilde, SKAL de listes med 'and' imellem dem - ogsaa ved 3 og derover (f.eks. FORFATTER 1 and FORFATTER 2 and FORFATTER 3). Naar kildelisten bygges i rapporten, vil der ved 2 forfattere komme til at staa [EFTERNAVN 1 og EFTERNAVN 2, AAR] og ved 3 forfattere og derover komme til at staa [EFTERNAVN 1 et. al, AAR]. 
+
+% Ved almindelige forfatternavne skal der vaere ét saet tuborg-parenteser ved Author (f.eks. author = {H. C. Andersen}). Ved andre navne (f.eks. virksomheder, hjemmesider, grupper, raad, naevn osv.) skal der vaere 2 saet tuborg-parenteser ved Author (f.eks. author = {{Dansk Standard}}). Begrundelse: Med 2 saet tuborg-parenteser skrives hele parentesen ud som forfatter, [Dansk Standard, AAR]. Alternativt ville der i eksemplet bare komme til at staa [Standard, AAR].
+
+
+%%%% EKSEMPLER (book, article, manual, techreport og misc) %%%%
+
+@book{fysikbog,
+	title = {Physics for Scientists and Engineers, 7th edition},
+	author = {John W. Jewett and Raymond A. Serway},
+	year = {2008},
+	number = {ISBN: 0-495-11240-2},
+	series = {Paperback},
+	publisher = {Thomson Learning}
+}
+
+@book{sommerville,
+	title = {Software Engineering tenth edition},
+	author = {Ian Sommerville},
+	year = {2016},
+	number = {ISBN: 1-292-09613-6},
+	series = {Paperback},
+	pages = {s. 43-100},
+	publisher = {Pearson}
+}
+
+@manual{uppaal,
+	author = {{Uppsala University} and {Aalborg University}},
+	address = {\url{http://www.uppaal.org/}},
+	title = {UPPAAL},
+	note = {Department of Information Technology at Uppsala University and Department of Computer Science at Aalborg University}
+}
+
+
+@article{maalere,
+	author = {Lars Gullev and Michael Poulsen},
+	title = {The installation of meters leads to permanent changes in consumer behaviour},
+	journal = {News from DBDH},
+	volume = {Journal 3/2006},
+	pages = {s. 20-24},
+	year = {2006}
+}
+
+@misc{cd,
+	author = {Bilags-CD},
+	title = {CD med bilag tilhørende B131}	
+}
+
+@book{rtsbog,
+	title = {Real-Time Embedded Systems: Open-Source Operating systems Perspective},
+	author = {Ivan Cibrario Bertolotti and Gabriele Manduchi},
+	year = {2012},
+	number = {ISBN: 9781439841549},
+	series = {ebook},
+	pages = {s. 269-272},
+	publisher = {CRC Press 2012}
+}
+
