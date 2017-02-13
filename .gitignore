@@ -181,8 +181,6 @@ TSWLatexianTemp*
 
 aSTEPDatabase/.idea/workspace.xml
 
-aSTEPDatabase/out/production/JavaDatabase/JavaGIS.class
-
-*.class
+aSTEPDatabase/out/
 
 aSTEPDatabase/.idea/dataSources/
