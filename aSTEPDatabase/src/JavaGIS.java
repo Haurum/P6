@@ -33,7 +33,7 @@ public class JavaGIS {
     * Create a statement and execute a select query. 
     */
             Statement s = conn.createStatement();
-            ResultSet r = s.executeQuery("select way,osm_id from planet_osm_line");
+            ResultSet r = s.executeQuery("select way,osm_id from planet_osm_line where tags-> 'name' = 'Strandvejen'");
             while( r.next() ) {
       /* 
       * Retrieve the geometry as an object then cast it to the geometry type. 
