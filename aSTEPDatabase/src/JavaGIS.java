@@ -19,16 +19,7 @@ public class JavaGIS {
             Class.forName("org.postgresql.Driver");
             String url = "jdbc:postgresql://localhost:5432/opengeo";
             conn = DriverManager.getConnection(url, "emilbonnerup", "");
-    /* 
-    * Add the geometry types to the connection. Note that you 
-    * must cast the connection to the pgsql-specific connection 
-    * implementation before calling the addDataType() method. 
-    */
-           /*
-            ((org.postgresql.PGConnection)conn).addDataType("geometry","org.postgis.PGgeometry");
-            ;
-            ((org.postgresql.PGConnection)conn).addDataType("box3d","org.postgis.PGbox3d");
-            */
+
     /* 
     * Create a statement and execute a select query. 
     */
@@ -47,10 +38,6 @@ public class JavaGIS {
             }
             s.close();
             conn.close();
-        }
-
-        catch(ClassCastException e){
-            e.printStackTrace();
         }
 
         catch(Exception e ) {
