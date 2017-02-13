@@ -1,6 +1,7 @@
 import java.sql.*;
 import java.util.*;
 import java.lang.*;
+
 import org.postgis.*;
 import org.postgresql.util.PGobject;
 
@@ -24,8 +25,8 @@ public class JavaGIS {
     * Create a statement and execute a select query. 
     */
             Statement s = conn.createStatement();
-            ResultSet r = s.executeQuery("select way,osm_id from planet_osm_line where tags-> 'name' = 'Strandvejen'");
-            while( r.next() ) {
+            ResultSet r = s.executeQuery("SELECT way,osm_id FROM planet_osm_line WHERE tags-> 'name' = 'Strandvejen'");
+            while (r.next()) {
       /* 
       * Retrieve the geometry as an object then cast it to the geometry type. 
       * Print things out. 
@@ -38,9 +39,7 @@ public class JavaGIS {
             }
             s.close();
             conn.close();
-        }
-
-        catch(Exception e ) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
