@@ -20,14 +20,13 @@ public class JavaGIS {
             Class.forName("org.postgresql.Driver");
             String url = "jdbc:postgresql://localhost:5432/opengeo";
             conn = DriverManager.getConnection(url, "emilbonnerup", "");
-
     /* 
-    * Create a statement and execute a select query. 
+    * Create a statement and execute a select query.
     */
             Statement s = conn.createStatement();
-            ResultSet r = s.executeQuery("SELECT way,osm_id FROM planet_osm_line WHERE tags-> 'name' = 'Strandvejen'");
+            ResultSet r = s.executeQuery("SELECT way,osm_id,tags FROM astep_line WHERE tags -> 'name' = 'Sonnesgade'");
             while (r.next()) {
-      /* 
+      /*
       * Retrieve the geometry as an object then cast it to the geometry type. 
       * Print things out. 
       */
@@ -36,6 +35,7 @@ public class JavaGIS {
                 int id = r.getInt(2);
                 System.out.println("Row " + id + ":");
                 System.out.println(lineString.length());
+                System.out.println(r.getString(3));
             }
             s.close();
             conn.close();
