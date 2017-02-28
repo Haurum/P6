@@ -14,8 +14,10 @@ import javax.sound.sampled.Line;
 public class JavaGIS {
 
     public static void main(String[] args) {
-        //populateEdgesWithLinestrings();
-        //createEdgesFromWays();
+        createEdgesFromWays();
+        populateEdgesWithLinestrings();
+        createEdgeNodes();
+
     }
 
     static void populateEdgesWithLinestrings(){
@@ -51,6 +53,7 @@ public class JavaGIS {
                 nodePointsArray = nodePoints.toArray(nodePointsArray);
                 edge.lineString = new LineString(nodePointsArray);
                 edge.lineString.setSrid(edge.lineString.getFirstPoint().srid);
+
                 String sql = "UPDATE edge SET linestring=? WHERE id=?";
                 PreparedStatement pstmt = conn.prepareStatement(sql);
                 pstmt.setObject(1, new PGgeometry(edge.lineString));
@@ -79,7 +82,8 @@ public class JavaGIS {
     * Create a statement and execute a select query.
     */
             Statement s = conn.createStatement();
-            ResultSet r = s.executeQuery("SELECT node_id FROM way_nodes GROUP BY node_id HAVING COUNT(node_id)>1");
+            //ResultSet r = s.executeQuery("SELECT node_id FROM way_nodes GROUP BY node_id HAVING COUNT(node_id)>1");
+            ResultSet r = s.executeQuery("SELECT way_nodes.node_id, way_nodes.way_id, ways.id, ways.tags -> 'highway' AS highway FROM way_nodes JOIN ways ON way_nodes.way_id=ways.id WHERE ways.tags ? 'highway' GROUP BY way_nodes.node_id, way_nodes.way_id, ways.id, ways.tags HAVING COUNT(node_id)>1 ");
             ArrayList<Long> nodeIds = new ArrayList<>();
             ArrayList<EdgeTemp> edges = new ArrayList<>();
             while (r.next()) {
@@ -93,7 +97,8 @@ public class JavaGIS {
                 //System.out.println(id);// + " | " + r.getLong(2) + " | " + r.getArray(3));
                 nodeIds.add(id);
             }
-            r = s.executeQuery("SELECT * FROM ways");
+            //r = s.executeQuery("SELECT * FROM ways");
+            r = s.executeQuery("SELECT * FROM ways WHERE tags ? 'highway'");
             while (r.next()){
                 EdgeTemp e = new EdgeTemp();
                 e.id = globalId;
@@ -181,6 +186,24 @@ public class JavaGIS {
                     seqNr++;
                 }
             }
+            s.close();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    static void transferTagsAndCalculateLength()
+    {
+        java.sql.Connection conn;
+        try{
+            Class.forName("org.postgresql.Driver");
+            String url = "jdbc:postgresql://localhost:5432/postgres";
+            conn = DriverManager.getConnection(url, "postgres", "");
+
+            Statement s = conn.createStatement();
+            s.executeUpdate("UPDATE curredge SET curredge.tags = currway.tags, curredge.length=ST_length(curredge.linestring::geography) FROM edge as curredge INNER JOIN ways as currway ON curredge.way_id=currway.id");
+
             s.close();
             conn.close();
         } catch (Exception e) {
